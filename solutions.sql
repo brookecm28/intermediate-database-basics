@@ -60,8 +60,8 @@
 
 -- SELECT * FROM track
 -- WHERE album_id IN 
---   (SELECT album_id FROM album WHERE artist_id IN
---      (SELECT artist_id FROM artist WHERE name = 'Queen'));
+-- (SELECT album_id FROM album WHERE artist_id IN
+-- (SELECT artist_id FROM artist WHERE name = 'Queen'));
 
 ----------------------
 
@@ -148,3 +148,68 @@
 -- WHERE value = 150;
 
 -------------------------
+
+
+--ECOMMERCE SIMULATION
+
+-- CREATE TABLE my_user (
+--   u_id SERIAL PRIMARY KEY, 
+--   name varchar(100), 
+--   weapon_of_choice varchar(100)
+-- );
+
+-- CREATE TABLE my_product (
+--   product_id SERIAL PRIMARY KEY, 
+--   name varchar(150), 
+--   price FLOAT
+--   );
+  
+-- CREATE TABLE my_order (
+--   order_id SERIAL PRIMARY KEY, 
+--   user_id INT, 
+--   product_id INT, 
+--   quantity INT
+--   );
+
+-- INSERT INTO my_user (name, weapon_of_choice) VALUES ('Caitlyn', 'Sniper Rifle');
+-- INSERT INTO my_user (name, weapon_of_choice) VALUES ('Ashe', 'Bow & Arrow');
+-- INSERT INTO my_user (name, weapon_of_choice) VALUES ('Garen', 'Broadsword');
+
+-- INSERT INTO my_product (name, price) VALUES ('Frost Arrow', 11);
+-- INSERT INTO my_product (name, price) VALUES ('Dorans Blade', 57);
+-- INSERT INTO my_product (name, price) VALUES ('Ward', 5);
+
+-- INSERT INTO my_order (user_id, product_id, quantity) VALUES (2, 1, 15);
+-- INSERT INTO my_order (user_id, product_id, quantity) VALUES (1, 2, 2);
+-- INSERT INTO my_order (user_id, product_id, quantity) VALUES (3, 3, 5);
+
+-- SELECT mp.name
+-- FROM my_order mo
+-- JOIN my_product mp ON mo.product_id = mp.product_id
+-- WHERE mo.order_id = 1;
+
+-- SELECT * FROM my_order;
+
+-- SELECT mp.price * mo.quantity
+-- FROM my_order mo
+-- JOIN my_product mp ON mo.product_id = mp.product_id;
+
+-- ALTER TABLE my_order
+-- ADD FOREIGN KEY (user_id) REFERENCES my_user(u_id);
+
+-- SELECT mo.order_id, mu.name, mp.name, mo.quantity, mo.quantity * mp.price
+-- FROM my_order mo
+-- JOIN my_user mu ON mo.user_id = mu.u_id
+-- JOIN my_product mp ON mo.product_id = mp.product_id
+-- WHERE mu.u_id = 2;
+
+-- SELECT COUNT(order_id)
+-- FROM my_order
+-- WHERE user_id = 2;
+
+--BLACK DIAMOND-------
+-- SELECT SUM(mo.quantity * mp.price)
+-- FROM my_order mo
+-- JOIN my_product mp ON mo.product_id = mp.product_id
+-- JOIN my_user mu ON mo.user_id = mu.u_id
+-- WHERE mu.u_id = 2;
